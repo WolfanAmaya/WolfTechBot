@@ -1,0 +1,12 @@
+services:
+  - type: worker
+    name: wolftechbot
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: GOOGLE_CREDS_JSON
+        sync: false
