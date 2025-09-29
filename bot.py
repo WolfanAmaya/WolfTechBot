@@ -3,7 +3,26 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ConversationHandler, ContextTypes
+import os
+import json
+from oauth2client.service_account import ServiceAccountCredentials
 
+# Credenciales desde variable de entorno
+google_creds = os.getenv("GOOGLE_CREDS_JSON")
+creds_dict = json.loads(google_creds)
+
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+import os, json
+from oauth2client.service_account import ServiceAccountCredentials
+
+google_creds = os.getenv("GOOGLE_CREDS_JSON")
+creds_dict = json.loads(google_creds)
+
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+client = gspread.authorize(creds)
+
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 # === Configuración de logs ===
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
